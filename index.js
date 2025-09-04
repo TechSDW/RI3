@@ -1,7 +1,186 @@
-import Cliente from "./Classes/Cliente.js";
-import Telefone from "./Classes/Telefone.js";
-import Endereço from "./Classes/Endereço.js";
-import Empresa from "./Classes/Empresa.js";
+class Cliente{
+    #cpf
+
+    constructor(nome, cpf, endereço){
+        this.nome = nome;
+        this.#cpf = cpf;
+        this.endereço = new Endereço(endereço.getEstado, endereço.getCidade, endereço.getRua, endereço.getNumero);
+        this.telefones = new Set();
+    }
+
+    set setNome(nome){
+        this.nome = nome;}
+    get getNome(){
+        return this.nome;}
+    get getUpperNome(){
+        return this.nome.toUpperCase();}
+    get getLowerNome(){
+        return this.nome.toLowerCase();}
+
+    set setEndereço(endereço){
+        this.endereço = endereço;}
+    get getEndereço(){
+        return this.endereço;}
+
+    set addTelefone(telefone){
+        this.telefones.add(telefone);}
+    get getTelefones(){
+        return this.telefones;}
+
+    get getCpf(){
+        return this.#cpf;}
+
+    get DescriçaoCliente(){
+        let descriçaoTelefones = ""
+
+        this.telefones.forEach(element => {
+            descriçaoTelefones += element.DescriçaoTelefone
+        });
+
+        return `Nome: ${this.nome}
+${this.endereço.DescriçaoEndereço}
+${descriçaoTelefones}\n`
+    }
+}
+
+class Telefone{
+    constructor(ddd, numero){
+        this.ddd = ddd;
+        this.numero = numero;
+    }
+
+    set setDdd(ddd){
+        this.ddd = ddd;}
+    get getDdd(){
+        return this.ddd;}
+    get getUpperDdd(){
+        return this.ddd.toUpperCase();}
+    get getLowerDdd(){
+        return this.ddd.toLowerCase();}
+
+    set setNumero(numero){
+        this.numero = numero;}
+    get getNumero(){
+        return this.numero;}
+    get getUpperNumero(){
+        return this.numero.toUpperCase();}
+    get getLowerNumero(){
+        return this.numero.toLowerCase();}
+
+    get DescriçaoTelefone(){
+        return `DDD: ${this.ddd} Número: ${this.numero}\n`
+    }
+}
+
+class Endereço{
+    constructor(estado, cidade, rua, numero){
+        this.estado = estado;
+        this.cidade = cidade;
+        this.rua = rua;
+        this.numero = numero;
+    }
+
+    set setEstado(estado){
+        this.estado = estado;}
+    get getEstado(){
+        return this.estado;}
+    get getUpperEstado(){
+        return this.estado.toUpperCase();}
+    get getLowerEstado(){
+        return this.estado.toLowerCase();}
+
+    set setCidade(cidade){
+        this.cidade = cidade;}
+    get getCidade(){
+        return this.cidade;}
+    get getUpperCidade(){
+        return this.cidade.toUpperCase();}
+    get getLowerCidade(){
+        return this.cidade.toLowerCase();}
+
+    set setRua(rua){
+        this.rua = rua;}
+    get getRua(){
+        return this.rua;}
+    get getUpperRua(){
+        return this.rua.toUpperCase();}
+    get getLowerRua(){
+        return this.rua.toLowerCase();}
+
+    set setNumero(numero){
+        this.numero = numero;}
+    get getNumero(){
+        return this.numero;}
+    get getUpperNumero(){
+        return this.numero.toUpperCase();}
+    get getLowerRua(){
+        return this.numero.toLowerCase();}
+
+    get DescriçaoEndereço(){
+        return `Estado: ${this.getUpperEstado} Cidade: ${this.cidade} Rua: ${this.rua} Número: ${this.numero}`
+    }
+}
+
+class Empresa{
+    #cnpj
+
+    constructor(razaoSocial, nome, cnpj, endereço){
+        this.razaoSocial = razaoSocial;
+        this.nome = nome;
+        this.#cnpj = cnpj;
+        this.endereço = new Endereço(endereço.getEstado, endereço.getCidade, endereço.getRua, endereço.getNumero);
+        this.clientes = new Set();
+        this.telefones = new Set();
+    }
+
+    set setRazaoSocial(razaoSocial){
+        this.razaoSocial = razaoSocial;}
+    get getRazaoSocial(){
+        return this.razaoSocial;}
+    get getUpperRazaoSocial(){
+        return this.razaoSocial.toUpperCase();}
+    get getLowerRazaoSocial(){
+        return this.razaoSocial.toLowerCase();}
+
+    set setNome(nome){
+        this.nome = nome;}
+    get getNome(){
+        return this.nome;}
+    get getUpperNome(){
+        return this.nome.toUpperCase();}
+    get getLowerNome(){
+        return this.nome.toLowerCase();}
+
+    get getCnpj(){
+        return this.#cnpj;}
+
+    set setEndereço(endereço){
+        this.endereço = endereço;}
+    get getEndereço(){
+        return this.endereço;}
+
+    set addCliente(cliente){
+        this.clientes.add(cliente);}
+    get getClientes(){
+        return this.clientes;}
+
+    set addTelefone(telefone){
+        this.telefones.add(telefone);}
+    get getTelefones(){
+        return this.telefones;}
+
+    get DescriçaoEmpresa(){
+        let descriçaoClientes = ""
+        this.clientes.forEach(element => {
+            descriçaoClientes += element.DescriçaoCliente;
+        });
+
+        return `Razão social: ${this.getUpperRazaoSocial}
+Nome fantasia: ${this.nome}
+---------------------------
+${descriçaoClientes}`
+    }
+}
 
 let endereço_cli1 = new Endereço("MG", "Uberlândia", "sei n fala patu", 800);
 let telefone1_cli1 = new Telefone(12, 128391);
